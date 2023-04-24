@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package aus.orchestration;
+
+// LINT.IfChange
+// Containers to hold repeated fundamental values.
+message BytesList {
+  repeated bytes value = 1;
+}
+message FloatList {
+  repeated float value = 1 [packed = true];
+}
+message Int64List {
+  repeated int64 value = 1 [packed = true];
+}
+
+// Containers for non-sequential data.
+message AusFeature {
+  // Each feature can be exactly one kind.
+  oneof kind {
+    BytesList bytes_list = 1;
+    FloatList float_list = 2;
+    Int64List int64_list = 3;
+  }
+}
+
+message AusFeatures {
+  // Map from feature name to feature.
+  map<string, AusFeature> feature = 1;
+}
+
+// Containers for sequential data.
+//
+// A FeatureList contains lists of Features.  These may hold zero or more
+// Feature values.
+//
+// FeatureLists are organized into categories by name.  The FeatureLists message
+// contains the mapping from name to FeatureList.
+//
+message AusFeatureList {
+  repeated AusFeature feature = 1;
+}
+
+message AusFeatureLists {
+  // Map from feature name to feature list.
+  map<string, AusFeatureList> feature_list = 1;
+}

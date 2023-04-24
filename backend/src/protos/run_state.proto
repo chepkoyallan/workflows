@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package aus.orchestration;
+
+// Indicates the run state of a TFleX pipeline or a node.
+message RunState {
+  // Next Id: 9
+  enum State {
+    UNKNOWN = 0;
+
+    // Ready to run but execution has not started.
+    READY = 1;
+
+    // Currently running.
+    RUNNING = 2;
+
+    // Run successfully completed.
+    COMPLETE = 3;
+
+    // Only applicable to nodes. Indicates that the node run was skipped due to
+    // condition not satisfied when pipeline has conditionals.
+    SKIPPED = 4;
+
+    // Only applicable to nodes. Indicates that the node run was skipped due to
+    // partial run.
+    SKIPPED_PARTIAL_RUN = 8;
+
+    // Indicates that any active run is temporarily paused and may be resumed.
+    PAUSED = 5;
+
+    // Indicates that the pipeline or node was stopped by an external agent.
+    // When stopped, any associated active MLMD executions are cancelled.
+    STOPPED = 6;
+
+    // Indicates failure to run to completion due to internal errors.
+    FAILED = 7;
+  }
+
+  State state = 1;
+
+  message StatusCodeValue {
+    // A google.rpc.Code describing the current status.
+    int32 value = 1;
+  }
+
+  StatusCodeValue status_code = 3;
+  string status_msg = 2;
+
+  // Milliseconds since epoch when the RunState is created.
+  int64 update_time = 4;
+}

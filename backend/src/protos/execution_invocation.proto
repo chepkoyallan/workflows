@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package aus.orchestration;
+
+import "ml_metadata/proto/metadata_store.proto";
+import "ml_metadata/proto/metadata_store_service.proto";
+import "aus/proto/orchestration/pipeline.proto";
+
+// All the information needed for a TFX component execution.
+// Next ID: 15
+message ExecutionInvocation {
+  reserved 1, 2;
+
+  // The exec_properties to feed to execution.
+  map<string, ml_metadata.Value> execution_properties = 3;
+
+  // The execution_properties and schema to parse non-primitive types.
+  map<string, aus.orchestration.Value> execution_properties_with_schema = 13;
+
+  // The uri to execution result. This is used to "return" the output to the
+  // caller if they are not running in the same process.
+  string output_metadata_uri = 4;
+
+  // Input artifact map.
+  map<string, ml_metadata.ArtifactStructList> input_dict = 5;
+
+  // Output artifact map.
+  map<string, ml_metadata.ArtifactStructList> output_dict = 6;
+
+  // Stateful working dir will be deterministic given pipeline, node and run_id.
+  // The typical usecase is to restore long running execution's state after
+  // eviction. This dir is clean up only when the execution succeeded.
+  string stateful_working_dir = 7;
+
+  // A temporary dir for executions and it is expected to be cleared up at the
+  // end of executions in both success and failure cases.
+  string tmp_dir = 10;
+
+  // Pipeline info proto from the IR specification.
+  aus.orchestration.PipelineInfo pipeline_info = 8;
+
+  // Pipeline node proto from the IR specification.
+  aus.orchestration.PipelineNode pipeline_node = 9;
+
+  // The MLMD `Execution` ID.
+  int64 execution_id = 11;
+
+  // The id of the pipeline run that this execution is in.
+  string pipeline_run_id = 12;
+
+  // Flags passed to a component.
+  map<string, string> extra_flags = 14;
+}

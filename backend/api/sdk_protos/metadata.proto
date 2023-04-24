@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import "backend/api/sdk_protos/metadata_store.proto";
+
+option go_package = "github.com/chepkoyallan/workflows/backend/api/sdk";
+
+// Connection config for Metadata store
+message MLMDConnectionConfig {
+  reserved 3;
+  oneof connection_config {
+    metadata_store.ConnectionConfig database_connection_config = 1;
+    metadata_store.MetadataStoreClientConfig mlmd_store_client_config = 2;
+  }
+}
+
+// info in workflow IR for cross project producer/consumer workflow.
+message MLMDServiceConfig {
+  string owner = 1;
+  string name = 2;
+  string mlmd_service_target = 3;
+}

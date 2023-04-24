@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package aus.orchestration;
+
+import "ml_metadata/proto/metadata_store.proto";
+
+
+message UpdateExecutionInfoRequest {
+  // Key values pairs will be a direct mapping to updates in custom_properties
+  // of the MLMD execution entry representing the component execution.
+  map<string, ml_metadata.Value> updates = 1;
+  int64 execution_id = 2;
+}
+
+message UpdateExecutionInfoResponse {}
+
+service ExecutionWatcherService {
+  // Update job info from a remote executor operator
+  rpc UpdateExecutionInfo(UpdateExecutionInfoRequest)
+      returns (UpdateExecutionInfoResponse) {}
+}

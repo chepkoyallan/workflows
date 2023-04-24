@@ -1,0 +1,3502 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Protocol Documentation</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic"/>
+    <style>
+      body {
+        width: 60em;
+        margin: 1em auto;
+        color: #222;
+        font-family: "Ubuntu", sans-serif;
+        padding-bottom: 4em;
+      }
+
+      h1 {
+        font-weight: normal;
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+      }
+
+      h2 {
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+        margin: 1.5em 0;
+      }
+
+      h3 {
+        font-weight: normal;
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+      }
+
+      a {
+        text-decoration: none;
+        color: #567e25;
+      }
+
+      table {
+        width: 100%;
+        font-size: 80%;
+        border-collapse: collapse;
+      }
+
+      thead {
+        font-weight: 700;
+        background-color: #dcdcdc;
+      }
+
+      tbody tr:nth-child(even) {
+        background-color: #fbfbfb;
+      }
+
+      td {
+        border: 1px solid #ccc;
+        padding: 0.5ex 2ex;
+      }
+
+      td p {
+        text-indent: 1em;
+        margin: 0;
+      }
+
+      td p:nth-child(1) {
+        text-indent: 0;  
+      }
+
+       
+      .field-table td:nth-child(1) {  
+        width: 10em;
+      }
+      .field-table td:nth-child(2) {  
+        width: 10em;
+      }
+      .field-table td:nth-child(3) {  
+        width: 6em;
+      }
+      .field-table td:nth-child(4) {  
+        width: auto;
+      }
+
+       
+      .extension-table td:nth-child(1) {  
+        width: 10em;
+      }
+      .extension-table td:nth-child(2) {  
+        width: 10em;
+      }
+      .extension-table td:nth-child(3) {  
+        width: 10em;
+      }
+      .extension-table td:nth-child(4) {  
+        width: 5em;
+      }
+      .extension-table td:nth-child(5) {  
+        width: auto;
+      }
+
+       
+      .enum-table td:nth-child(1) {  
+        width: 10em;
+      }
+      .enum-table td:nth-child(2) {  
+        width: 10em;
+      }
+      .enum-table td:nth-child(3) {  
+        width: auto;
+      }
+
+       
+      .scalar-value-types-table tr {
+        height: 3em;
+      }
+
+       
+      #toc-container ul {
+        list-style-type: none;
+        padding-left: 1em;
+        line-height: 180%;
+        margin: 0;
+      }
+      #toc > li > a {
+        font-weight: bold;
+      }
+
+       
+      .file-heading {
+        width: 100%;
+        display: table;
+        border-bottom: 1px solid #aaa;
+        margin: 4em 0 1.5em 0;
+      }
+      .file-heading h2 {
+        border: none;
+        display: table-cell;
+      }
+      .file-heading a {
+        text-align: right;
+        display: table-cell;
+      }
+
+       
+      .badge {
+        width: 1.6em;
+        height: 1.6em;
+        display: inline-block;
+
+        line-height: 1.6em;
+        text-align: center;
+        font-weight: bold;
+        font-size: 60%;
+
+        color: #89ba48;
+        background-color: #dff0c8;
+
+        margin: 0.5ex 1em 0.5ex -1em;
+        border: 1px solid #fbfbfb;
+        border-radius: 1ex;
+      }
+    </style>
+
+    
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+  </head>
+
+  <body>
+
+    <h1 id="title">Protocol Documentation</h1>
+
+    <h2>Table of Contents</h2>
+
+    <div id="toc-container">
+      <ul id="toc">
+        
+          
+          <li>
+            <a href="#metadata_store.proto">metadata_store.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#ml_metadata.AnyArtifactStructType"><span class="badge">M</span>AnyArtifactStructType</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.Artifact"><span class="badge">M</span>Artifact</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.Artifact.CustomPropertiesEntry"><span class="badge">M</span>Artifact.CustomPropertiesEntry</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.Artifact.PropertiesEntry"><span class="badge">M</span>Artifact.PropertiesEntry</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.ArtifactStructType"><span class="badge">M</span>ArtifactStructType</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.ArtifactType"><span class="badge">M</span>ArtifactType</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.ArtifactType.PropertiesEntry"><span class="badge">M</span>ArtifactType.PropertiesEntry</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.Association"><span class="badge">M</span>Association</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.Attribution"><span class="badge">M</span>Attribution</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.ConnectionConfig"><span class="badge">M</span>ConnectionConfig</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.Context"><span class="badge">M</span>Context</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.Context.CustomPropertiesEntry"><span class="badge">M</span>Context.CustomPropertiesEntry</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.Context.PropertiesEntry"><span class="badge">M</span>Context.PropertiesEntry</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.ContextType"><span class="badge">M</span>ContextType</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.ContextType.PropertiesEntry"><span class="badge">M</span>ContextType.PropertiesEntry</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.DictArtifactStructType"><span class="badge">M</span>DictArtifactStructType</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.DictArtifactStructType.PropertiesEntry"><span class="badge">M</span>DictArtifactStructType.PropertiesEntry</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.Event"><span class="badge">M</span>Event</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.Event.Path"><span class="badge">M</span>Event.Path</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.Event.Path.Step"><span class="badge">M</span>Event.Path.Step</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.Execution"><span class="badge">M</span>Execution</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.Execution.CustomPropertiesEntry"><span class="badge">M</span>Execution.CustomPropertiesEntry</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.Execution.PropertiesEntry"><span class="badge">M</span>Execution.PropertiesEntry</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.ExecutionType"><span class="badge">M</span>ExecutionType</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.ExecutionType.PropertiesEntry"><span class="badge">M</span>ExecutionType.PropertiesEntry</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.FakeDatabaseConfig"><span class="badge">M</span>FakeDatabaseConfig</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.GrpcChannelArguments"><span class="badge">M</span>GrpcChannelArguments</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.IntersectionArtifactStructType"><span class="badge">M</span>IntersectionArtifactStructType</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.LineageGraph"><span class="badge">M</span>LineageGraph</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.LineageGraphQueryOptions"><span class="badge">M</span>LineageGraphQueryOptions</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.LineageGraphQueryOptions.BoundaryConstraint"><span class="badge">M</span>LineageGraphQueryOptions.BoundaryConstraint</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.ListArtifactStructType"><span class="badge">M</span>ListArtifactStructType</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.ListOperationNextPageToken"><span class="badge">M</span>ListOperationNextPageToken</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.ListOperationOptions"><span class="badge">M</span>ListOperationOptions</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.ListOperationOptions.OrderByField"><span class="badge">M</span>ListOperationOptions.OrderByField</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.MetadataStoreClientConfig"><span class="badge">M</span>MetadataStoreClientConfig</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.MetadataStoreClientConfig.SSLConfig"><span class="badge">M</span>MetadataStoreClientConfig.SSLConfig</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.MetadataStoreServerConfig"><span class="badge">M</span>MetadataStoreServerConfig</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.MetadataStoreServerConfig.SSLConfig"><span class="badge">M</span>MetadataStoreServerConfig.SSLConfig</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.MigrationOptions"><span class="badge">M</span>MigrationOptions</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.MySQLDatabaseConfig"><span class="badge">M</span>MySQLDatabaseConfig</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.MySQLDatabaseConfig.SSLOptions"><span class="badge">M</span>MySQLDatabaseConfig.SSLOptions</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.NoneArtifactStructType"><span class="badge">M</span>NoneArtifactStructType</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.ParentContext"><span class="badge">M</span>ParentContext</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.RetryOptions"><span class="badge">M</span>RetryOptions</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.SqliteMetadataSourceConfig"><span class="badge">M</span>SqliteMetadataSourceConfig</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.SystemTypeExtension"><span class="badge">M</span>SystemTypeExtension</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.TransactionOptions"><span class="badge">M</span>TransactionOptions</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.TupleArtifactStructType"><span class="badge">M</span>TupleArtifactStructType</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.UnionArtifactStructType"><span class="badge">M</span>UnionArtifactStructType</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.Value"><span class="badge">M</span>Value</a>
+                </li>
+              
+              
+                <li>
+                  <a href="#ml_metadata.Artifact.State"><span class="badge">E</span>Artifact.State</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.ArtifactType.SystemDefinedBaseType"><span class="badge">E</span>ArtifactType.SystemDefinedBaseType</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.ContextType.SystemDefinedBaseType"><span class="badge">E</span>ContextType.SystemDefinedBaseType</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.Event.Type"><span class="badge">E</span>Event.Type</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.Execution.State"><span class="badge">E</span>Execution.State</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.ExecutionType.SystemDefinedBaseType"><span class="badge">E</span>ExecutionType.SystemDefinedBaseType</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.ListOperationOptions.OrderByField.Field"><span class="badge">E</span>ListOperationOptions.OrderByField.Field</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.PropertyType"><span class="badge">E</span>PropertyType</a>
+                </li>
+              
+                <li>
+                  <a href="#ml_metadata.SqliteMetadataSourceConfig.ConnectionMode"><span class="badge">E</span>SqliteMetadataSourceConfig.ConnectionMode</a>
+                </li>
+              
+              
+                <li>
+                  <a href="#metadata_store.proto-extensions"><span class="badge">X</span>File-level Extensions</a>
+                </li>
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#workflow.proto">workflow.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#.NodeInfo"><span class="badge">M</span>NodeInfo</a>
+                </li>
+              
+                <li>
+                  <a href="#.Workflow"><span class="badge">M</span>Workflow</a>
+                </li>
+              
+                <li>
+                  <a href="#.Workflow.WorkflowOrNode"><span class="badge">M</span>Workflow.WorkflowOrNode</a>
+                </li>
+              
+                <li>
+                  <a href="#.WorkflowNode"><span class="badge">M</span>WorkflowNode</a>
+                </li>
+              
+              
+                <li>
+                  <a href="#.Workflow.ExecutionMode"><span class="badge">E</span>Workflow.ExecutionMode</a>
+                </li>
+              
+              
+              
+            </ul>
+          </li>
+        
+        <li><a href="#scalar-value-types">Scalar Value Types</a></li>
+      </ul>
+    </div>
+
+    
+      
+      <div class="file-heading">
+        <h2 id="metadata_store.proto">metadata_store.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="ml_metadata.AnyArtifactStructType">AnyArtifactStructType</h3>
+        <p>Every ArtifactStruct is a member of this type.</p>
+
+        
+
+        
+      
+        <h3 id="ml_metadata.Artifact">Artifact</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>Output only. The globally unique server generated id of the artifact. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The client provided name of the artifact. This field is optional. If set,
+it must be unique among all the artifacts of the same artifact type within
+a database instance and cannot be changed once set. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>type_id</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>The id of an ArtifactType. This needs to be specified when an artifact is
+created, and it cannot be changed. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>type</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>Output only. The name of an ArtifactType. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>uri</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The uniform resource identifier of the physical artifact.
+May be empty if there is no physical artifact. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>external_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The external id that come from the clients’ system. This field is optional.
+If set, it must be unique among all artifacts within a database instance. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>properties</td>
+                  <td><a href="#ml_metadata.Artifact.PropertiesEntry">Artifact.PropertiesEntry</a></td>
+                  <td>repeated</td>
+                  <td><p>Properties of the artifact.
+Properties must be specified in the ArtifactType. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>custom_properties</td>
+                  <td><a href="#ml_metadata.Artifact.CustomPropertiesEntry">Artifact.CustomPropertiesEntry</a></td>
+                  <td>repeated</td>
+                  <td><p>User provided custom properties which are not defined by its type. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>state</td>
+                  <td><a href="#ml_metadata.Artifact.State">Artifact.State</a></td>
+                  <td>optional</td>
+                  <td><p>The state of the artifact known to the system. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>create_time_since_epoch</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>Output only. Create time of the artifact in millisecond since epoch. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>last_update_time_since_epoch</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>Output only. Last update time of the artifact since epoch in millisecond
+since epoch. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.Artifact.CustomPropertiesEntry">Artifact.CustomPropertiesEntry</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#ml_metadata.Value">Value</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.Artifact.PropertiesEntry">Artifact.PropertiesEntry</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#ml_metadata.Value">Value</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.ArtifactStructType">ArtifactStructType</h3>
+        <p>The list of ArtifactStruct is EXPERIMENTAL and not in use yet.</p><p>The type of an ArtifactStruct.</p><p>An artifact struct type represents an infinite set of artifact structs.</p><p>It can specify the input or output type of an ExecutionType.</p><p>See the more specific types referenced in the message for more details.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>simple</td>
+                  <td><a href="#ml_metadata.ArtifactType">ArtifactType</a></td>
+                  <td>optional</td>
+                  <td><p>Matches exactly this type. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>union_type</td>
+                  <td><a href="#ml_metadata.UnionArtifactStructType">UnionArtifactStructType</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>intersection</td>
+                  <td><a href="#ml_metadata.IntersectionArtifactStructType">IntersectionArtifactStructType</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>list</td>
+                  <td><a href="#ml_metadata.ListArtifactStructType">ListArtifactStructType</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>none</td>
+                  <td><a href="#ml_metadata.NoneArtifactStructType">NoneArtifactStructType</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>any</td>
+                  <td><a href="#ml_metadata.AnyArtifactStructType">AnyArtifactStructType</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tuple</td>
+                  <td><a href="#ml_metadata.TupleArtifactStructType">TupleArtifactStructType</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>dict</td>
+                  <td><a href="#ml_metadata.DictArtifactStructType">DictArtifactStructType</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.ArtifactType">ArtifactType</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>The id of the type. 1-1 relationship between type names and IDs. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The name of the type. It must be unique among ArtifactTypes within a
+database instance. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>version</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>An optional version of the type. An empty string is treated as unset. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>description</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>An optional description about the type. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>external_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The external id that come from the clients’ system. This field is optional.
+If set, it must be unique among all artifact types within a database
+instance. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>properties</td>
+                  <td><a href="#ml_metadata.ArtifactType.PropertiesEntry">ArtifactType.PropertiesEntry</a></td>
+                  <td>repeated</td>
+                  <td><p>The schema of the type.
+Properties are always optional in the artifact.
+Properties of an artifact type can be expanded but not contracted (i.e.,
+you can add columns but not remove them). </p></td>
+                </tr>
+              
+                <tr>
+                  <td>base_type</td>
+                  <td><a href="#ml_metadata.ArtifactType.SystemDefinedBaseType">ArtifactType.SystemDefinedBaseType</a></td>
+                  <td>optional</td>
+                  <td><p>An optional system defined base_type expressing the intent of the current
+type. This field is useful for the tool builders to utilize the stored MLMD
+information, e.g., `MyModel` ArtifactType could set base_type = MODEL. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.ArtifactType.PropertiesEntry">ArtifactType.PropertiesEntry</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#ml_metadata.PropertyType">PropertyType</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.Association">Association</h3>
+        <p>the Association edges between Context and Execution instances.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>execution_id</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>context_id</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.Attribution">Attribution</h3>
+        <p>the Attribution edges between Context and Artifact instances.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>artifact_id</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>context_id</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.ConnectionConfig">ConnectionConfig</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>fake_database</td>
+                  <td><a href="#ml_metadata.FakeDatabaseConfig">FakeDatabaseConfig</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>mysql</td>
+                  <td><a href="#ml_metadata.MySQLDatabaseConfig">MySQLDatabaseConfig</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>sqlite</td>
+                  <td><a href="#ml_metadata.SqliteMetadataSourceConfig">SqliteMetadataSourceConfig</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>retry_options</td>
+                  <td><a href="#ml_metadata.RetryOptions">RetryOptions</a></td>
+                  <td>optional</td>
+                  <td><p>Options for overwriting the default retry setting when MLMD transactions
+returning Aborted error.
+The setting is currently available for python client library only.
+TODO(b/154862807) set the setting in transaction executor. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.Context">Context</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>Output Only. The globally unique server generated id of the context. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The client provided name of the context. It must be unique within a
+database instance. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>type_id</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>The id of a ContextType. This needs to be specified when a context is
+created, and it cannot be changed. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>type</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>Output only. The name of a ContextType. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>external_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The external id that come from the clients’ system. This field is optional.
+If set, it must be unique among all contexts within a virtual database. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>properties</td>
+                  <td><a href="#ml_metadata.Context.PropertiesEntry">Context.PropertiesEntry</a></td>
+                  <td>repeated</td>
+                  <td><p>Values of the properties, which must be specified in the ContextType. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>custom_properties</td>
+                  <td><a href="#ml_metadata.Context.CustomPropertiesEntry">Context.CustomPropertiesEntry</a></td>
+                  <td>repeated</td>
+                  <td><p>User provided custom properties which are not defined by its type. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>create_time_since_epoch</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>Output only. Create time of the context in millisecond since epoch. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>last_update_time_since_epoch</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>Output only. Last update time of the context in millisecond since epoch. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.Context.CustomPropertiesEntry">Context.CustomPropertiesEntry</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#ml_metadata.Value">Value</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.Context.PropertiesEntry">Context.PropertiesEntry</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#ml_metadata.Value">Value</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.ContextType">ContextType</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>The id of the type. 1-1 relationship between type names and IDs. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The name of the type, e.g., Pipeline, Task, Session, User, etc. It must be
+unique among ContextTypes within a database instance. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>version</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>An optional version of the type. An empty string is treated as unset. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>description</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>An optional description about the type. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>external_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The external id that come from the clients’ system. This field is optional.
+If set, it must be unique among all context types within a database
+instance. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>properties</td>
+                  <td><a href="#ml_metadata.ContextType.PropertiesEntry">ContextType.PropertiesEntry</a></td>
+                  <td>repeated</td>
+                  <td><p>The schema of the type, e.g., name: string, owner: string
+Properties are always optional in the context.
+Properties of an context type can be expanded but not contracted (i.e.,
+you can add columns but not remove them). </p></td>
+                </tr>
+              
+                <tr>
+                  <td>base_type</td>
+                  <td><a href="#ml_metadata.ContextType.SystemDefinedBaseType">ContextType.SystemDefinedBaseType</a></td>
+                  <td>optional</td>
+                  <td><p>An optional system defined base_type expressing the intent of the current
+context type.
+*NOTE: currently there are no system Context types defined, and the field
+is not used for ContextType. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.ContextType.PropertiesEntry">ContextType.PropertiesEntry</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#ml_metadata.PropertyType">PropertyType</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.DictArtifactStructType">DictArtifactStructType</h3>
+        <p>A artifact struct type that represents a record or struct-like dictionary.</p><p>ArtifactStruct would be map (i.e. ArtifactStructMap)</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>properties</td>
+                  <td><a href="#ml_metadata.DictArtifactStructType.PropertiesEntry">DictArtifactStructType.PropertiesEntry</a></td>
+                  <td>repeated</td>
+                  <td><p>Underlying properties for the type. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>none_type_not_required</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td>optional</td>
+                  <td><p>If true, then if properties[&#34;foo&#34;] can be None, then that key is not
+required. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>extra_properties_type</td>
+                  <td><a href="#ml_metadata.ArtifactStructType">ArtifactStructType</a></td>
+                  <td>optional</td>
+                  <td><p>Extra keys are allowed that are not specified in properties. These
+keys must have the type specified below.
+If this is not specified, then extra properties are not allowed. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.DictArtifactStructType.PropertiesEntry">DictArtifactStructType.PropertiesEntry</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#ml_metadata.ArtifactStructType">ArtifactStructType</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.Event">Event</h3>
+        <p>An event represents a relationship between an artifact and an execution.</p><p>There are different kinds of events, relating to both input and output, as</p><p>well as how they are used by the mlmd powered system.</p><p>For example, the DECLARED_INPUT and DECLARED_OUTPUT events are part of the</p><p>signature of an execution. For example, consider:</p><p>my_result = my_execution({"data":[3,7],"schema":8})</p><p>Where 3, 7, and 8 are artifact_ids, Assuming execution_id of my_execution is</p><p>12 and artifact_id of my_result is 15, the events are:</p><p>{</p><p>artifact_id:3,</p><p>execution_id: 12,</p><p>type:DECLARED_INPUT,</p><p>path:{step:[{"key":"data"},{"index":0}]}</p><p>}</p><p>{</p><p>artifact_id:7,</p><p>execution_id: 12,</p><p>type:DECLARED_INPUT,</p><p>path:{step:[{"key":"data"},{"index":1}]}</p><p>}</p><p>{</p><p>artifact_id:8,</p><p>execution_id: 12,</p><p>type:DECLARED_INPUT,</p><p>path:{step:[{"key":"schema"}]}</p><p>}</p><p>{</p><p>artifact_id:15,</p><p>execution_id: 12,</p><p>type:DECLARED_OUTPUT,</p><p>path:{step:[{"key":"my_result"}]}</p><p>}</p><p>Other event types include INPUT/OUTPUT, INTERNAL_INPUT/_OUTPUT and</p><p>PENDING_OUTPUT:</p><p>* The INPUT/OUTPUT is an event that actually reads/writes an artifact by an</p><p>execution. The input/output artifacts may not declared in the signature,</p><p>For example, the trainer may output multiple caches of the parameters</p><p>(as an OUTPUT), then finally write the SavedModel as a DECLARED_OUTPUT.</p><p>* The INTERNAL_INPUT/_OUTPUT are event types which are only meaningful to</p><p>an orchestration system to keep track of the details for later debugging.</p><p>For example, a fork happened conditioning on an artifact, then an execution</p><p>is triggered, such fork implementating may need to log the read and write</p><p>of artifacts and may not be worth displaying to the users.</p><p>For instance, in the above example,</p><p>my_result = my_execution({"data":[3,7],"schema":8})</p><p>there is another execution (id: 15), which represents a `garbage_collection`</p><p>step in an orchestration system</p><p>gc_result = garbage_collection(my_result)</p><p>that cleans `my_result` if needed. The details should be invisible to the</p><p>end users and lineage tracking. The orchestrator can emit following events:</p><p>{</p><p>artifact_id: 15,</p><p>execution_id: 15,</p><p>type:INTERNAL_INPUT,</p><p>}</p><p>{</p><p>artifact_id:16,  // New artifact containing the GC job result.</p><p>execution_id: 15,</p><p>type:INTERNAL_OUTPUT,</p><p>path:{step:[{"key":"gc_result"}]}</p><p>}</p><p>* The PENDING_OUTPUT event is used to indicate that an artifact is</p><p>tentatively associated with an active execution which has not yet been</p><p>finalized. For example, an orchestration system can register output</p><p>artifacts of a running execution with PENDING_OUTPUT events to indicate</p><p>the output artifacts the execution is expected to produce. When the</p><p>execution is finished, the final set of output artifacts can be associated</p><p>with the exeution using OUTPUT events, and any unused artifacts which were</p><p>previously registered with PENDING_OUTPUT events can be updated to set</p><p>their Artifact.State to ABANDONED.</p><p>Events are unique of the same</p><p>(artifact_id, execution_id, type) combination within a metadata store.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>artifact_id</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>The artifact id is required for an event, and should refer to an
+existing artifact. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>execution_id</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>The execution_id is required for an event, and should refer to an
+existing execution. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>path</td>
+                  <td><a href="#ml_metadata.Event.Path">Event.Path</a></td>
+                  <td>optional</td>
+                  <td><p>The path in an artifact struct, or the name of an artifact. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>type</td>
+                  <td><a href="#ml_metadata.Event.Type">Event.Type</a></td>
+                  <td>optional</td>
+                  <td><p>The type of an event. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>milliseconds_since_epoch</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>Time the event occurred
+Epoch is Jan 1, 1970, UTC </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.Event.Path">Event.Path</h3>
+        <p>A simple path (e.g. {step{key:"foo"}}) can name an artifact in the context</p><p>of an execution.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>steps</td>
+                  <td><a href="#ml_metadata.Event.Path.Step">Event.Path.Step</a></td>
+                  <td>repeated</td>
+                  <td><p>A simple path (e.g. {step{key:&#34;foo&#34;}}) can name an artifact in the
+context of an execution. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.Event.Path.Step">Event.Path.Step</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>index</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.Execution">Execution</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>Output only. The globally unique server generated id of the execution. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The client provided name of the execution. This field is optional. If set,
+it must be unique among all the executions of the same execution type
+within a database instance and cannot be changed once set. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>type_id</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>The id of an ExecutionType. This needs to be specified when an execution is
+created, and it cannot be changed.
+The id of an ExecutionType. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>type</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>Output only. The name of an ExecutionType. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>external_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The external id that come from the clients’ system. This field is optional.
+If set, it must be unique among all executions within a database instance. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>last_known_state</td>
+                  <td><a href="#ml_metadata.Execution.State">Execution.State</a></td>
+                  <td>optional</td>
+                  <td><p>The last known state of an execution in the system. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>properties</td>
+                  <td><a href="#ml_metadata.Execution.PropertiesEntry">Execution.PropertiesEntry</a></td>
+                  <td>repeated</td>
+                  <td><p>Properties of the Execution.
+Properties must be specified in the ExecutionType. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>custom_properties</td>
+                  <td><a href="#ml_metadata.Execution.CustomPropertiesEntry">Execution.CustomPropertiesEntry</a></td>
+                  <td>repeated</td>
+                  <td><p>User provided custom properties which are not defined by its type. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>create_time_since_epoch</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>Output only. Create time of the execution in millisecond since epoch. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>last_update_time_since_epoch</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>Output only. Last update time of the execution in millisecond since epoch. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.Execution.CustomPropertiesEntry">Execution.CustomPropertiesEntry</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#ml_metadata.Value">Value</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.Execution.PropertiesEntry">Execution.PropertiesEntry</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#ml_metadata.Value">Value</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.ExecutionType">ExecutionType</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>The id of the type. 1-1 relationship between type names and IDs. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The name of the type. It must be unique among ExecutionTypes within a
+database instance. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>version</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>An optional version of the type. An empty string is treated as unset. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>description</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>An optional description about the type. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>external_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The external id that come from the clients’ system. This field is optional.
+If set, it must be unique among all execution types within a database
+instance. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>properties</td>
+                  <td><a href="#ml_metadata.ExecutionType.PropertiesEntry">ExecutionType.PropertiesEntry</a></td>
+                  <td>repeated</td>
+                  <td><p>The schema of the type.
+Properties are always optional in the execution. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>input_type</td>
+                  <td><a href="#ml_metadata.ArtifactStructType">ArtifactStructType</a></td>
+                  <td>optional</td>
+                  <td><p>The ArtifactStructType of the input.
+For example: {
+    &#34;dict&#34;:{
+       &#34;properties&#34;:{
+         &#34;schema&#34;:{
+           &#34;union_type&#34;:{
+             &#34;none&#34;:{},
+             &#34;simple&#34;:{...schema type...}
+            },
+         },
+         &#34;data&#34;:{
+           &#34;simple&#34;:{...data_type...}
+         }
+      }
+    }
+}
+That would be an optional schema field with a required data field. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>output_type</td>
+                  <td><a href="#ml_metadata.ArtifactStructType">ArtifactStructType</a></td>
+                  <td>optional</td>
+                  <td><p>The ArtifactStructType of the output.
+For example {&#34;simple&#34;:{...stats gen output type...}} </p></td>
+                </tr>
+              
+                <tr>
+                  <td>base_type</td>
+                  <td><a href="#ml_metadata.ExecutionType.SystemDefinedBaseType">ExecutionType.SystemDefinedBaseType</a></td>
+                  <td>optional</td>
+                  <td><p>An optional system defined base_type expressing the intent of the current
+type. This field is useful for the tool builders to utilize the stored MLMD
+information, e.g., `MyTrainer` ExecutionType could set base_type = TRAIN. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.ExecutionType.PropertiesEntry">ExecutionType.PropertiesEntry</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#ml_metadata.PropertyType">PropertyType</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.FakeDatabaseConfig">FakeDatabaseConfig</h3>
+        <p>Configuration for a "fake" database.</p><p>This database is an in-memory SQLite database that lives only as</p><p>long as the associated object lives.</p>
+
+        
+
+        
+      
+        <h3 id="ml_metadata.GrpcChannelArguments">GrpcChannelArguments</h3>
+        <p>A list of supported GRPC arguments defined in:</p><p>https://grpc.github.io/grpc/core/group__grpc__arg__keys.html</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>max_receive_message_length</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>Maximum message length in bytes per response that the channel can receive. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>http2_max_ping_strikes</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>Maximum misbehaving pings the server can bear before sending goaway and
+closing the transport? (0 indicates infinite number of misbehaving pings) </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.IntersectionArtifactStructType">IntersectionArtifactStructType</h3>
+        <p>A member of this type must satisfy all constraints.</p><p>This primarily useful not as an end-user type, but something calculated</p><p>as an intermediate type in the system.</p><p>For example, suppose you have a method:</p><p>def infer_my_input_type(a): # try to infer the input type of this method.</p><p>use_in_method_x(a) # with input type x_input</p><p>use_in_method_y(a) # with input type y_input</p><p>Given this information, you know that infer_my_input_type has</p><p>type {"intersection":{"constraints":[x_input, y_input]}}.</p><p>IntersectionArtifactStructType intersection_type = {"constraints":[</p><p>{"dict":{"properties":{"schema":{"any":{}}},</p><p>"extra_properties":{"any":{}}}},</p><p>{"dict":{"properties":{"data":{"any":{}}},</p><p>"extra_properties":{"any":{}}}}]}</p><p>Since the first constraint requires the dictionary to have a schema</p><p>property, and the second constraint requires it to have a data property, this</p><p>is equivalent to:</p><p>ArtifactStructType other_type =</p><p>{"dict":{"properties":{"schema":{"any":{}},"data":{"any":{}}}},</p><p>"extra_properties":{"any":{}}}</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>constraints</td>
+                  <td><a href="#ml_metadata.ArtifactStructType">ArtifactStructType</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.LineageGraph">LineageGraph</h3>
+        <p>A self-contained provenance (sub)graph representation consists of MLMD nodes</p><p>and their relationships. It is used to represent the query results from the</p><p>persistent backend (e.g., lineage about a node, reachability of two nodes).</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>artifact_types</td>
+                  <td><a href="#ml_metadata.ArtifactType">ArtifactType</a></td>
+                  <td>repeated</td>
+                  <td><p>extracted types </p></td>
+                </tr>
+              
+                <tr>
+                  <td>execution_types</td>
+                  <td><a href="#ml_metadata.ExecutionType">ExecutionType</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>context_types</td>
+                  <td><a href="#ml_metadata.ContextType">ContextType</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>artifacts</td>
+                  <td><a href="#ml_metadata.Artifact">Artifact</a></td>
+                  <td>repeated</td>
+                  <td><p>extracted nodes </p></td>
+                </tr>
+              
+                <tr>
+                  <td>executions</td>
+                  <td><a href="#ml_metadata.Execution">Execution</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>contexts</td>
+                  <td><a href="#ml_metadata.Context">Context</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>events</td>
+                  <td><a href="#ml_metadata.Event">Event</a></td>
+                  <td>repeated</td>
+                  <td><p>extracted edges </p></td>
+                </tr>
+              
+                <tr>
+                  <td>attributions</td>
+                  <td><a href="#ml_metadata.Attribution">Attribution</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>associations</td>
+                  <td><a href="#ml_metadata.Association">Association</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.LineageGraphQueryOptions">LineageGraphQueryOptions</h3>
+        <p>The query options for list lineage graph operation. It allows specifying the</p><p>`query_nodes` of interests and the `stop_conditions` when querying a</p><p>lineage graph. The query option is used for exporting provenance information</p><p>from a source MLMD instance.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>artifacts_options</td>
+                  <td><a href="#ml_metadata.ListOperationOptions">ListOperationOptions</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>stop_conditions</td>
+                  <td><a href="#ml_metadata.LineageGraphQueryOptions.BoundaryConstraint">LineageGraphQueryOptions.BoundaryConstraint</a></td>
+                  <td>optional</td>
+                  <td><p>A constraint option to define the boundary of the returned subgraph. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>max_node_size</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>Maximum number of returned nodes.
+If set to 0 or below, all related nodes will be returned. Default: 20</p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.LineageGraphQueryOptions.BoundaryConstraint">LineageGraphQueryOptions.BoundaryConstraint</h3>
+        <p>Boundary conditions to stop the traversal when return the `subgraph`.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>max_num_hops</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>The maximum number of hops from the `query_nodes` to traverse. It should
+be non-negative. When zero, only the `query_nodes` are returned. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>boundary_artifacts</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>Conditions for the boundary node in the returned the subgraph.
+Please refer to ListOperationOptions.filter_query for the syntax.
+If set, it stops traversing further at the artifacts that do not satisfy
+`boundary_artifacts` and exclude them from the returned subgraph.
+For example, to look for the models related to a DataSet and ignore
+other artifacts derived from the DataSet:
+  &#34;type = &#39;DataSet&#39; OR type = &#39;TransformGraph&#39; OR type = &#39;Model&#39;&#34; </p></td>
+                </tr>
+              
+                <tr>
+                  <td>boundary_executions</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>If set, it stops traversing further at the executions that do not satisfy
+`boundary_executions` and exclude them from the returned subgraph.
+For example, two trainers may be connected due to the shared datasets,
+to exclude other trainers except a particular one (e.g., id = 5):
+  &#34;type != &#39;Trainer&#39; OR (type = &#39;Trainer&#39; AND id = 5)&#34; </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.ListArtifactStructType">ListArtifactStructType</h3>
+        <p>Represents an ArtifactStruct list type with homogeneous elements.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>element</td>
+                  <td><a href="#ml_metadata.ArtifactStructType">ArtifactStructType</a></td>
+                  <td>optional</td>
+                  <td><p>Every entry in the list must be of this type.
+Note: if this type is Any, then the list can have arbitrary elements. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.ListOperationNextPageToken">ListOperationNextPageToken</h3>
+        <p>Encapsulates information to identify the next page of resources in</p><p>ListOperation.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id_offset</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>Id offset within the resultset to start next page.
+Id offset is returned as Id is the unique field used to break ties for
+fields that might have duplicate entries, e.g. there could be two
+resources with same create_time. In such cases to  break the tie in
+ordering, id offset is used.
+This field is currently only set whe order_by field is CREATE_TIME. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>field_offset</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>Offset value of the order by field. If ID is used this value is same as
+id_offset. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>set_options</td>
+                  <td><a href="#ml_metadata.ListOperationOptions">ListOperationOptions</a></td>
+                  <td>optional</td>
+                  <td><p>Options set in the first call to ListOperation. This ensures that if
+next_page_token is set by the caller then ListPipelineJobs API will always
+use options set in the first call. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>listed_ids</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>repeated</td>
+                  <td><p>List of ids that have the same order_by field values. This is used to
+ensure List Operation does not return duplicate entries for nodes that have
+the same order_by field value.
+This field is currently only set whe order_by field is LAST_UPDATE_TIME. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.ListOperationOptions">ListOperationOptions</h3>
+        <p>ListOperationOptions represents the set of options and predicates to be</p><p>used for List operations on Artifacts, Executions and Contexts.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>max_result_size</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td>optional</td>
+                  <td><p>Max number of resources to return in the result. A value of zero or less
+results in a InvalidArgumentError.
+The API implementation also enforces an upper-bound of 100, and picks the
+minimum between this value and the one specified here. Default: 20</p></td>
+                </tr>
+              
+                <tr>
+                  <td>order_by_field</td>
+                  <td><a href="#ml_metadata.ListOperationOptions.OrderByField">ListOperationOptions.OrderByField</a></td>
+                  <td>optional</td>
+                  <td><p>Ordering field. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>next_page_token</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>Identifies the next page of results. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>filter_query</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>A boolean expression in SQL syntax that is used to specify the conditions
+on nodes&#39; attributes and 1-hop neighborhood.
+
+In the current implementation, filtering Artifact/Execution/Context with
+the following attributes and neighborhood is supported:
+
+Attributes:
+    id:int64, type_id:int64, type:string,
+    uri:string, name: string, external_id: string,
+    create_time_since_epoch:int64, last_update_time_since_epoch:int64
+    state:ENUM (Artifact only) last_known_state:ENUM (Execution only)
+
+Neighborhood
+- Properties and Custom Properties (for all node types):
+  syntax: properties.$name ($name is the property name)
+          custom_properties.$name ($name is the custom property name)
+  attributes: the following attributes can be used
+     int_value: int64, double_value: double, string_value: string
+
+- Context (for Artifact and Execution):
+  syntax: contexts_$alias ($alias can be [0-9A-Za-z_])
+  attributes: the following attributes can be used
+     id:int64, name:string, type:string, create_time_since_epoch:int64,
+     last_update_time_since_epoch: int64
+
+- Parent and Child Contexts (for Contexts):
+  syntax: parent_contexts_$alias( $alias can be [0-9A-Za-z_]
+          child_contexts_$alias( $alias can be [0-9A-Za-z_]
+  attributes: the following attributes can be used
+     id:int64, name: string, type:string
+
+- Event (for Artifact and Execution)
+  syntax: events_$alias ($alias can be [0-9A-Za-z_])
+  attributes: the following attributes can be used
+    artifact_id: int64(Execution only), execution_id: int64(Artifact only),
+    type: ENUM, milliseconds_since_epoch: int64
+
+Examples:
+a) to filter nodes attributes:
+   - id != 1
+   - id IN (1, 3)
+   - type_id = 5
+   - type = &#39;my_type_name&#39;
+   - name = &#39;foo&#39;
+   - type = &#39;bar&#39; AND name LIKE &#39;foo%&#39;
+   - external_id = &#39;my_external_id&#39;
+   - NOT(create_time_since_epoch &lt; 1 OR last_update_time_since_epoch &lt; 1)
+
+b) to filter artifacts&#39; uri
+   - uri = &#39;exact_path_string&#39;
+   - uri LIKE &#39;path_like_this%&#39;
+   - uri IS NOT NULL
+
+c) to filter artifact&#39;s state or execution&#39;s last_known_state
+   - state = LIVE
+   - state IS NULL
+   - last_known_state = RUNNING
+   - last_known_state != RUNNING
+
+d) to filter nodes having a specific context, artifact, or execution
+   - contexts_a.id = 5
+   - contexts_a.type = &#39;RunContext&#39;
+   - contexts_a.name = &#39;my_run&#39;
+   - contexts_a.create_time_since_epoch = 1626761453
+   - contexts_a.last_update_time_since_epoch = 1626761453
+   To filter nodes with conditions on multiple contexts:
+   - contexts_a.name = &#39;my_run&#39; AND contexts_b.name = &#39;my_pipeline&#39;
+   To filter context with artifacts:
+   - artifacts_a.id = 5
+   - artifacts_a.type = &#39;Dataset&#39;
+   - artifacts_a.name = &#39;my_dataset&#39;
+   - artifacts_a.uri = &#39;exact_path_string&#39;
+   - artifacts_a.state = LIVE
+   - artifacts_a.external_id = &#34;my_external_id&#34;
+   - artifacts_a.create_time_since_epoch = 1626761453
+   - artifacts_a.last_update_time_since_epoch = 1626761453
+   To filter contexts with conditions on multiple artifacts:
+   - artifacts_a.name = &#39;my_run&#39; AND artifacts_b.name = &#39;my_pipeline&#39;
+   To filter context with executions:
+   - executions_a.id = 5
+   - executions_a.type = &#39;Dataset&#39;
+   - executions_a.name = &#39;my_dataset&#39;
+   - executions_a.last_known_state = RUNNING
+   - executions_a.external_id = &#34;my_external_id&#34;
+   - executions_a.create_time_since_epoch = 1626761453
+   - executions_a.last_update_time_since_epoch = 1626761453
+   To filter contexts with conditions on multiple executions:
+   - executions_a.name = &#39;my_run&#39; AND executions_b.name = &#39;my_pipeline&#39;
+
+e) to filter nodes condition on their properties
+   - properties.accuracy.double_value &gt; 0.95
+   - custom_properties.my_param.string_value = &#34;foo&#34;
+   If the name of the property or custom property includes characters
+   other than [0-9A-Za-z_], then the name need to be backquoted,
+   e.g.,
+   - properties.`my property`.int_value &gt; 0
+   - custom_properties.`my:custom.property`.string_value = &#39;foo&#39;
+
+f) complex query to filter both node attributes and neighborhood
+   - type = &#39;DataSet&#39; AND
+     (contexts_a.type = &#39;RunContext&#39; AND contexts_a.name = &#39;my_run&#39;) AND
+     (properties.span = 1 OR custom_properties.span = 1)
+
+g) to filter parent/child context
+   - parent_contexts_a.id = 5
+   - child_contexts_a.type = &#39;RunContext&#39;
+   - parent_contexts_a.name = &#39;parent_context_1&#39;
+
+h) to filter Artifacts on Events
+   - events_0.execution_id = 1
+   - events_0.type = INPUT
+   - events_0.milliseconds_since_epoch = 1
+   to filter Executions on Events
+   - events_0.artifact_id = 1
+   - events_0.type = INPUT
+   - events_0.milliseconds_since_epoch = 1
+TODO(b/145945460) Support filtering on event step fields. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.ListOperationOptions.OrderByField">ListOperationOptions.OrderByField</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>field</td>
+                  <td><a href="#ml_metadata.ListOperationOptions.OrderByField.Field">ListOperationOptions.OrderByField.Field</a></td>
+                  <td>optional</td>
+                  <td><p>Field to order. Default: ID</p></td>
+                </tr>
+              
+                <tr>
+                  <td>is_asc</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td>optional</td>
+                  <td><p>Direction of ordering. Default: true</p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.MetadataStoreClientConfig">MetadataStoreClientConfig</h3>
+        <p>Configuration for the gRPC metadata store client.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>host</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The hostname or IP address of the gRPC server. Must be specified. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>port</td>
+                  <td><a href="#uint32">uint32</a></td>
+                  <td>optional</td>
+                  <td><p>The TCP Port number that the gRPC server accepts connections on.
+Must be specified. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>ssl_config</td>
+                  <td><a href="#ml_metadata.MetadataStoreClientConfig.SSLConfig">MetadataStoreClientConfig.SSLConfig</a></td>
+                  <td>optional</td>
+                  <td><p>Configuration for a secure gRPC channel.
+If not given, insecure connection is used. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>channel_arguments</td>
+                  <td><a href="#ml_metadata.GrpcChannelArguments">GrpcChannelArguments</a></td>
+                  <td>optional</td>
+                  <td><p>GRPC channel creation arguments. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>client_timeout_sec</td>
+                  <td><a href="#double">double</a></td>
+                  <td>optional</td>
+                  <td><p>Time duration that a client is willing to wait for a reply from the server.
+If unset, the timeout is considered infinite. When the field is specified,
+Grpc APIs would return DeadlineExceededError when server does not respond
+within `client_timeout_sec`. Floating point valued, in seconds. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.MetadataStoreClientConfig.SSLConfig">MetadataStoreClientConfig.SSLConfig</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>client_key</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The PEM-encoded private key as a byte string, or Empty if no private key
+should be used. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>server_cert</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The PEM-encoded certificate chain as a byte string to use or or Empty if
+no certificate chain should be used. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>custom_ca</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The PEM-encoded root certificates as a byte string, or Empty to retrieve
+them from a default location chosen by gRPC runtime. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.MetadataStoreServerConfig">MetadataStoreServerConfig</h3>
+        <p>Configuration for the gRPC metadata store server.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>connection_config</td>
+                  <td><a href="#ml_metadata.ConnectionConfig">ConnectionConfig</a></td>
+                  <td>optional</td>
+                  <td><p>Configuration to connect the metadata source backend. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>migration_options</td>
+                  <td><a href="#ml_metadata.MigrationOptions">MigrationOptions</a></td>
+                  <td>optional</td>
+                  <td><p>Configuration for upgrade and downgrade migrations the metadata source. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>ssl_config</td>
+                  <td><a href="#ml_metadata.MetadataStoreServerConfig.SSLConfig">MetadataStoreServerConfig.SSLConfig</a></td>
+                  <td>optional</td>
+                  <td><p>Configuration for a secure gRPC channel.
+If not given, insecure connection is used. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.MetadataStoreServerConfig.SSLConfig">MetadataStoreServerConfig.SSLConfig</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>server_key</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>Private server key for SSL </p></td>
+                </tr>
+              
+                <tr>
+                  <td>server_cert</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>Public server certificate </p></td>
+                </tr>
+              
+                <tr>
+                  <td>custom_ca</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>Custom certificate authority </p></td>
+                </tr>
+              
+                <tr>
+                  <td>client_verify</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td>optional</td>
+                  <td><p>Valid client certificate required? </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.MigrationOptions">MigrationOptions</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>enable_upgrade_migration</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td>optional</td>
+                  <td><p>If not set, by default the upgrade migration is disabled. MLMD only
+compares db_v with the lib_v, and raise error if the two do not align.
+If the field is set to true, MLMD performs upgrade migration. It upgrades
+the database schema version (db_v) to align with the library schema
+version (lib_v) when connecting to the database.
+Schema migration should not be run concurrently with multiple clients to
+prevent data races. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>downgrade_to_schema_version</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>Downgrade the given database to the specified schema version.
+For v0.13.2 release, the schema_version is 0.
+For 0.14.0 and 0.15.0 release, the schema_version is 4.
+More details are described in g3doc/get_start.md#upgrade-mlmd-library
+Set this field only when a database is accidentally upgraded by a newer
+version library. Each library version only knows how to downgrade to
+previous schema versions. As downgrade migrations inevitably introduce
+data loss, please consider taking a backup of the database before
+downgrading schema.
+After downgrade migration, the database connection is canceled. The user
+needs to downgrade the library to use the database. Default: -1</p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.MySQLDatabaseConfig">MySQLDatabaseConfig</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>host</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The hostname or IP address of the MYSQL server:
+* If unspecified, a connection to the local host is assumed.
+  The client connects using a Unix socket specified by `socket`.
+* Otherwise, TCP/IP is used.
+Currently a replicated MYSQL backend is not supported. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>port</td>
+                  <td><a href="#uint32">uint32</a></td>
+                  <td>optional</td>
+                  <td><p>The TCP Port number that the MYSQL server accepts connections on.
+If unspecified, the default MYSQL port (3306) is used. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>database</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The database to connect to. Must be specified.
+After connecting to the MYSQL server, this database is created if not
+already present unless skip_db_creation is set.
+All queries after Connect() are assumed to be for this database. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>user</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The MYSQL login id. If empty, the current user is assumed. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>password</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The password to use for `user`. If empty, only MYSQL user ids that don&#39;t
+have a password set are allowed to connect. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>socket</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The Unix socket to use to connect to the server. If unspecified, a
+`host` must be provided. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>ssl_options</td>
+                  <td><a href="#ml_metadata.MySQLDatabaseConfig.SSLOptions">MySQLDatabaseConfig.SSLOptions</a></td>
+                  <td>optional</td>
+                  <td><p>If the field is set, the ssl options are set in mysql_options before
+establishing a connection. It is ignored if the mysql server does not
+enable SSL. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>skip_db_creation</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td>optional</td>
+                  <td><p>A config to skip the database creation if not exist when connecting the
+db instance. It is useful when the db creation is handled by an admin
+process, while the lib user should not issue db creation clauses. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.MySQLDatabaseConfig.SSLOptions">MySQLDatabaseConfig.SSLOptions</h3>
+        <p>The options to establish encrypted connections to MySQL using SSL.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The path name of the client private key file. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>cert</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The path name of the client public key certificate file. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>ca</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The path name of the CA certificate file. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>capath</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The path name of the directory that contains trusted SSL CA certificates. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>cipher</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The list of permissible ciphers for SSL encryption. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>verify_server_cert</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td>optional</td>
+                  <td><p>If set, enable verification of the server certificate against the host
+name used when connecting to the server. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.NoneArtifactStructType">NoneArtifactStructType</h3>
+        <p>The only member of this type is a None artifact.</p><p>Note: ArtifactStruct{} is a None artifact.</p><p>This can represent an execution that has no outputs (or inputs),</p><p>or can be part of a UnionArtifactStructType to represent an optional</p><p>input.</p><p>For example, StatsGen has an "optional" schema input.</p><p>A practical example of this is:</p><p>stats_gen_type = {</p><p>"dict":{</p><p>"properties":{</p><p>"schema":{</p><p>"union_type":{</p><p>"none":{},</p><p>"simple":{...schema type...}</p><p>},</p><p>},</p><p>"data":{</p><p>"simple":{...data_type...}</p><p>}</p><p>}</p><p>}</p><p>};</p>
+
+        
+
+        
+      
+        <h3 id="ml_metadata.ParentContext">ParentContext</h3>
+        <p>the Parental Context edges between Context and Context instances.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>child_id</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>parent_id</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.RetryOptions">RetryOptions</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>max_num_retries</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p>The max number of retries when transaction returns Aborted error. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.SqliteMetadataSourceConfig">SqliteMetadataSourceConfig</h3>
+        <p>A config contains the parameters when using with SqliteMetadatSource.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>filename_uri</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>A uri specifying Sqlite3 database filename, for example:
+
+  file:some_sqlite3_file_in_local_dir.db
+  file:///home/username/some_sqlite3_file.db
+
+see https://www.sqlite.org/c3ref/open.html for model details
+
+If not given, a in-memory sqlite3 database is used, and destroyed when
+disconnecting the metadata source. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>connection_mode</td>
+                  <td><a href="#ml_metadata.SqliteMetadataSourceConfig.ConnectionMode">SqliteMetadataSourceConfig.ConnectionMode</a></td>
+                  <td>optional</td>
+                  <td><p>A flag specifying the connection mode. If not given, default connection
+mode is set to READWRITE_OPENCREATE. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.SystemTypeExtension">SystemTypeExtension</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>type_name</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>The name of a system defined type. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.TransactionOptions">TransactionOptions</h3>
+        <p>Options for transactions.</p><p>Note: This is under development. Clients should not use it.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>tag</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p>Transaction tag for debug use only. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.TupleArtifactStructType">TupleArtifactStructType</h3>
+        <p>An ordered list of heterogeneous artifact structs.</p><p>The length of the list is fixed.</p><p>Each position in the list can have a different type.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>elements</td>
+                  <td><a href="#ml_metadata.ArtifactStructType">ArtifactStructType</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.UnionArtifactStructType">UnionArtifactStructType</h3>
+        <p>Represents a union of types.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>candidates</td>
+                  <td><a href="#ml_metadata.ArtifactStructType">ArtifactStructType</a></td>
+                  <td>repeated</td>
+                  <td><p>An artifact struct matches this type if it matches any of the candidates.
+If candidates is empty, this is a bottom type (matches no artifacts). </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ml_metadata.Value">Value</h3>
+        <p>A value in properties.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>int_value</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>double_value</td>
+                  <td><a href="#double">double</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>string_value</td>
+                  <td><a href="#string">string</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>struct_value</td>
+                  <td><a href="#google.protobuf.Struct">google.protobuf.Struct</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>proto_value</td>
+                  <td><a href="#google.protobuf.Any">google.protobuf.Any</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>bool_value</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td>optional</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+        <h3 id="ml_metadata.Artifact.State">Artifact.State</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>UNKNOWN</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>PENDING</td>
+                <td>1</td>
+                <td><p>A state indicating that the artifact may exist.</p></td>
+              </tr>
+            
+              <tr>
+                <td>LIVE</td>
+                <td>2</td>
+                <td><p>A state indicating that the artifact should exist, unless something
+external to the system deletes it.</p></td>
+              </tr>
+            
+              <tr>
+                <td>MARKED_FOR_DELETION</td>
+                <td>3</td>
+                <td><p>A state indicating that the artifact should be deleted.</p></td>
+              </tr>
+            
+              <tr>
+                <td>DELETED</td>
+                <td>4</td>
+                <td><p>A state indicating that the artifact has been deleted.</p></td>
+              </tr>
+            
+              <tr>
+                <td>ABANDONED</td>
+                <td>5</td>
+                <td><p>A state indicating that the artifact has been abandoned, which may be
+due to a failed or cancelled execution.</p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id="ml_metadata.ArtifactType.SystemDefinedBaseType">ArtifactType.SystemDefinedBaseType</h3>
+        <p>An enum of system-defined artifact types.</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>UNSET</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>DATASET</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>MODEL</td>
+                <td>2</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>METRICS</td>
+                <td>3</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>STATISTICS</td>
+                <td>4</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id="ml_metadata.ContextType.SystemDefinedBaseType">ContextType.SystemDefinedBaseType</h3>
+        <p>An enum of system-defined context types.</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>UNSET</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id="ml_metadata.Event.Type">Event.Type</h3>
+        <p>Events distinguish between an artifact that is written by the execution</p><p>(possibly as a cache), versus artifacts that are part of the declared</p><p>output of the Execution. For more information on what DECLARED_ means,</p><p>see the comment on the message.</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>UNKNOWN</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>DECLARED_OUTPUT</td>
+                <td>1</td>
+                <td><p>A declared output of the execution.</p></td>
+              </tr>
+            
+              <tr>
+                <td>DECLARED_INPUT</td>
+                <td>2</td>
+                <td><p>A declared input of the execution.</p></td>
+              </tr>
+            
+              <tr>
+                <td>INPUT</td>
+                <td>3</td>
+                <td><p>An input of the execution.</p></td>
+              </tr>
+            
+              <tr>
+                <td>OUTPUT</td>
+                <td>4</td>
+                <td><p>An output of the execution.</p></td>
+              </tr>
+            
+              <tr>
+                <td>INTERNAL_INPUT</td>
+                <td>5</td>
+                <td><p>An internal input of the execution.</p></td>
+              </tr>
+            
+              <tr>
+                <td>INTERNAL_OUTPUT</td>
+                <td>6</td>
+                <td><p>An internal output of the execution.</p></td>
+              </tr>
+            
+              <tr>
+                <td>PENDING_OUTPUT</td>
+                <td>7</td>
+                <td><p>A pending output of the execution.</p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id="ml_metadata.Execution.State">Execution.State</h3>
+        <p>The state of the Execution. The state transitions are</p><p>NEW -> RUNNING -> COMPLETE | CACHED | FAILED | CANCELED</p><p>CACHED means the execution is skipped due to cached results.</p><p>CANCELED means the execution is skipped due to precondition not met. It is</p><p>different from CACHED in that a CANCELED execution will not have any event</p><p>associated with it. It is different from FAILED in that there is no</p><p>unexpected error happened and it is regarded as a normal state.</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>UNKNOWN</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>NEW</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>RUNNING</td>
+                <td>2</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>COMPLETE</td>
+                <td>3</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>FAILED</td>
+                <td>4</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>CACHED</td>
+                <td>5</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>CANCELED</td>
+                <td>6</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id="ml_metadata.ExecutionType.SystemDefinedBaseType">ExecutionType.SystemDefinedBaseType</h3>
+        <p>An enum of system-defined execution types.</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>UNSET</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>TRAIN</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>TRANSFORM</td>
+                <td>2</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>PROCESS</td>
+                <td>3</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>EVALUATE</td>
+                <td>4</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>DEPLOY</td>
+                <td>5</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id="ml_metadata.ListOperationOptions.OrderByField.Field">ListOperationOptions.OrderByField.Field</h3>
+        <p>Supported fields for Ordering.</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>FIELD_UNSPECIFIED</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>CREATE_TIME</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>LAST_UPDATE_TIME</td>
+                <td>2</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>ID</td>
+                <td>3</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id="ml_metadata.PropertyType">PropertyType</h3>
+        <p>The list of supported property value types.</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>UNKNOWN</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>INT</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>DOUBLE</td>
+                <td>2</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>STRING</td>
+                <td>3</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>STRUCT</td>
+                <td>4</td>
+                <td><p>Prefer to use `PROTO` to store structed data since this option has
+inefficient database storage usage.</p></td>
+              </tr>
+            
+              <tr>
+                <td>PROTO</td>
+                <td>5</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>BOOLEAN</td>
+                <td>6</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id="ml_metadata.SqliteMetadataSourceConfig.ConnectionMode">SqliteMetadataSourceConfig.ConnectionMode</h3>
+        <p>Connection parameters for SQLite3 based metadata source.</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>UNKNOWN</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>READONLY</td>
+                <td>1</td>
+                <td><p>Connect a metadata source in read-only mode. Connection fail if the
+sqlite3 database at the `filename` does not exist. Any queries modifying
+the database fail.</p></td>
+              </tr>
+            
+              <tr>
+                <td>READWRITE</td>
+                <td>2</td>
+                <td><p>Connect a metadata source in read/write mode. Connection fail if the
+sqlite3 database at the `filename` does not exist.</p></td>
+              </tr>
+            
+              <tr>
+                <td>READWRITE_OPENCREATE</td>
+                <td>3</td>
+                <td><p>Similar to READWRITE. In addition, it creates the database if it does not
+exist.</p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+
+      
+        <h3 id="metadata_store.proto-extensions">File-level Extensions</h3>
+        <table class="extension-table">
+          <thead>
+            <tr><td>Extension</td><td>Type</td><td>Base</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>system_type_extension</td>
+                <td><a href="#ml_metadata.SystemTypeExtension">SystemTypeExtension</a></td>
+                <td><a href="#google.protobuf.EnumValueOptions">.google.protobuf.EnumValueOptions</a></td>
+                <td>384560917</td>
+                <td><p>The system type information of each simple type enum refers to.</p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="workflow.proto">workflow.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id=".NodeInfo">NodeInfo</h3>
+        <p>Basic information of a workflow node, including the type and id of the node</p><p>The information in `NodeInfo` should stay stable across time. Asynchronous</p><p>data fetching behaviour might change if this changes</p><p>Metadata type of the node</p>
+
+        
+
+        
+      
+        <h3 id=".Workflow">Workflow</h3>
+        <p>Definition for a udsl workflow. This is also a definition od a sub workflow</p>
+
+        
+
+        
+      
+        <h3 id=".Workflow.WorkflowOrNode">Workflow.WorkflowOrNode</h3>
+        <p>A node inside a workflow can be either a  `WorkflowNode` or a `Workflow` as a </p><p>subworkflow</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>workflow_node</td>
+                  <td><a href="#WorkflowNode">WorkflowNode</a></td>
+                  <td></td>
+                  <td><p>A normal workflow node. This is the unsplittable execution unit </p></td>
+                </tr>
+              
+                <tr>
+                  <td>sub_workflow</td>
+                  <td><a href="#Workflow">Workflow</a></td>
+                  <td></td>
+                  <td><p>sub-workflows should only have execution mode `SYNC`. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".WorkflowNode">WorkflowNode</h3>
+        <p>Workflow node definition</p><p>Basic info of a workflow node</p>
+
+        
+
+        
+      
+
+      
+        <h3 id=".Workflow.ExecutionMode">Workflow.ExecutionMode</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>EXECUTION_MODE_UNSPECIFIED</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>SYNC</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>ASYNC</td>
+                <td>2</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+
+      
+
+      
+    
+
+    <h2 id="scalar-value-types">Scalar Value Types</h2>
+    <table class="scalar-value-types-table">
+      <thead>
+        <tr><td>.proto Type</td><td>Notes</td><td>C++</td><td>Java</td><td>Python</td><td>Go</td><td>C#</td><td>PHP</td><td>Ruby</td></tr>
+      </thead>
+      <tbody>
+        
+          <tr id="double">
+            <td>double</td>
+            <td></td>
+            <td>double</td>
+            <td>double</td>
+            <td>float</td>
+            <td>float64</td>
+            <td>double</td>
+            <td>float</td>
+            <td>Float</td>
+          </tr>
+        
+          <tr id="float">
+            <td>float</td>
+            <td></td>
+            <td>float</td>
+            <td>float</td>
+            <td>float</td>
+            <td>float32</td>
+            <td>float</td>
+            <td>float</td>
+            <td>Float</td>
+          </tr>
+        
+          <tr id="int32">
+            <td>int32</td>
+            <td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>int</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="int64">
+            <td>int64</td>
+            <td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
+          </tr>
+        
+          <tr id="uint32">
+            <td>uint32</td>
+            <td>Uses variable-length encoding.</td>
+            <td>uint32</td>
+            <td>int</td>
+            <td>int/long</td>
+            <td>uint32</td>
+            <td>uint</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="uint64">
+            <td>uint64</td>
+            <td>Uses variable-length encoding.</td>
+            <td>uint64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>uint64</td>
+            <td>ulong</td>
+            <td>integer/string</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="sint32">
+            <td>sint32</td>
+            <td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>int</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="sint64">
+            <td>sint64</td>
+            <td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
+          </tr>
+        
+          <tr id="fixed32">
+            <td>fixed32</td>
+            <td>Always four bytes. More efficient than uint32 if values are often greater than 2^28.</td>
+            <td>uint32</td>
+            <td>int</td>
+            <td>int</td>
+            <td>uint32</td>
+            <td>uint</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="fixed64">
+            <td>fixed64</td>
+            <td>Always eight bytes. More efficient than uint64 if values are often greater than 2^56.</td>
+            <td>uint64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>uint64</td>
+            <td>ulong</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
+          </tr>
+        
+          <tr id="sfixed32">
+            <td>sfixed32</td>
+            <td>Always four bytes.</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>int</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="sfixed64">
+            <td>sfixed64</td>
+            <td>Always eight bytes.</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
+          </tr>
+        
+          <tr id="bool">
+            <td>bool</td>
+            <td></td>
+            <td>bool</td>
+            <td>boolean</td>
+            <td>boolean</td>
+            <td>bool</td>
+            <td>bool</td>
+            <td>boolean</td>
+            <td>TrueClass/FalseClass</td>
+          </tr>
+        
+          <tr id="string">
+            <td>string</td>
+            <td>A string must always contain UTF-8 encoded or 7-bit ASCII text.</td>
+            <td>string</td>
+            <td>String</td>
+            <td>str/unicode</td>
+            <td>string</td>
+            <td>string</td>
+            <td>string</td>
+            <td>String (UTF-8)</td>
+          </tr>
+        
+          <tr id="bytes">
+            <td>bytes</td>
+            <td>May contain any arbitrary sequence of bytes.</td>
+            <td>string</td>
+            <td>ByteString</td>
+            <td>str</td>
+            <td>[]byte</td>
+            <td>ByteString</td>
+            <td>string</td>
+            <td>String (ASCII-8BIT)</td>
+          </tr>
+        
+      </tbody>
+    </table>
+  </body>
+</html>
+
